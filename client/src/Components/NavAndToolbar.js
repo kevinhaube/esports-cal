@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -55,19 +55,72 @@ function NavAndToolbar(props) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [checkedA, setCheckedA] = useState(false)
     const [title, setTitle] = useState('Esports Calendar')
+    const [mainActive, setMainActive] = useState(false)
+    const [lolAcive, setLolActive] = useState(false)
+    const [csgoAcive, setCsgoActive] = useState(false)
+    const [dotaAcive, setDotaActive] = useState(false)
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    const handleChange = name => event => {
-      switch(name) {
-        case 'checkedA':
-          setCheckedA(event.target.checked)
-        default:
+    useEffect(() => {
+      switch(props.active) {
+        case 0:
+          setMainActive(true)
+          setLolActive(false)
+          setCsgoActive(false)
+          setDotaActive(false)
+          break;
+        case 1:
+          setMainActive(false)
+          setLolActive(true)
+          setCsgoActive(false)
+          setDotaActive(false)
+          break;
+        case 2:
+          setMainActive(false)
+          setLolActive(false)
+          setCsgoActive(true)
+          setDotaActive(false)
+          break;
+        case 3:
+          setMainActive(false)
+          setLolActive(false)
+          setCsgoActive(false)
+          setDotaActive(true)
           break;
       }
-    };
+    })
+
+    const getIcon = icon => {
+      switch(icon) {
+        case 'main':
+          if(mainActive) {
+            return <CalendarTodayIcon color='primary'/>
+          } else {
+            return <CalendarTodayIcon/>
+          }
+        case 'lol':
+          if(lolAcive) {
+            return <img src={LoLIcon} style={{height: '24px', width: 'auto'}} />
+          } else {
+            return <img src={LoLIconOff} style={{height: '24px', width: 'auto'}} />
+          }
+        case 'csgo':
+          if(csgoAcive) {
+            return <img src={CSGOIcon} style={{height: '24px', width: 'auto'}} />
+          } else {
+            return <img src={CSGOIconOff} style={{height: '24px', width: 'auto'}} />
+          }
+        case 'dota':
+          if(dotaAcive) {
+            return <img src={DOTA2Icon} style={{height: '24px', width: 'auto'}} />
+          } else {
+            return <img src={DOTA2IconOff} style={{height: '24px', width: 'auto'}} />
+          }
+      }
+    }
 
     const drawer = (
         <div>
@@ -79,7 +132,7 @@ function NavAndToolbar(props) {
                 margin: '5px'
             }}>
               <IconButton onClick={() => props.navListener(0)} style={{width: 'auto', display: 'block', marginBottom: '8px'}} >
-                <CalendarTodayIcon color='primary'/>
+                {getIcon('main')}
               </IconButton>
             </div>
           <Divider/>
@@ -89,17 +142,17 @@ function NavAndToolbar(props) {
             margin: '5px'
           }}>
             <IconButton onClick={() => props.navListener(1)} style={{width: 'auto', display: 'block', marginBottom: '8px'}} >
-              <img src={LoLIconOff} style={{height: '24px', width: 'auto'}} />
+              {getIcon('lol')}
             </IconButton>
             <IconButton onClick={() => props.navListener(2)} style={{width: 'auto', display: 'block', marginBottom: '8px'}} >
-              <img src={CSGOIconOff} style={{height: '24px', width: 'auto'}} />
+              {getIcon('csgo')}
             </IconButton>
             <IconButton onClick={() => props.navListener(3)} style={{width: 'auto', display: 'block', marginBottom: '8px'}} >
-              <img src={DOTA2IconOff} style={{height: '24px', width: 'auto'}} />
+              {getIcon('dota')}
             </IconButton>
-            <IconButton onClick={() => props.navListener(4)} style={{width: 'auto', display: 'block', marginBottom: '8px'}} >
+            {/* <IconButton onClick={() => props.navListener(4)} style={{width: 'auto', display: 'block', marginBottom: '8px'}} >
               <img src={RLIconOff} style={{height: '24px', width: 'auto'}} />
-            </IconButton>
+            </IconButton> */}
           </div>
           <Divider />
             <div style={{

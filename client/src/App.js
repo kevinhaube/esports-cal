@@ -34,7 +34,7 @@ function App() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <NavAndToolbar navListener={navListener} />
+      <NavAndToolbar navListener={navListener} active={page} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <CalendarList page={page} />
