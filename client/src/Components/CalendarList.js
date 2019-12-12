@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import CalendarDateMarker from './CalendarDateMarker';
 import { Typography } from '@material-ui/core';
@@ -12,7 +12,6 @@ function CalendarList(props) {
     const [page, setPage] = useState(props.page)
 
     const address = (pageNum) => {
-        console.log("Address: " + pageNum)
         switch(pageNum) {
             case 0:
                 return 'https://api.pandascore.co/series/upcoming?token=P7jhyk5q4qOK-tiEXzT_1ovsLhKT8ECuj7t_BB6XOeYyb3u21yE'
@@ -28,7 +27,10 @@ function CalendarList(props) {
     }
 
     useEffect(() => {
-        console.log("Running GET on page " + page)
+       setPage(props.page)
+    })
+
+    useEffect(() => {
         axios.get(address(page))
           .then(res => {
             // console.log(res.data)
@@ -37,7 +39,7 @@ function CalendarList(props) {
           .catch(error => {
             console.log(error)
           })
-    }, [])
+    }, [page])
 
     useEffect(() => {
         if (series.length > 0) {
