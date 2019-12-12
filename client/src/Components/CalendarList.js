@@ -14,15 +14,15 @@ function CalendarList(props) {
     const address = (pageNum) => {
         switch(pageNum) {
             case 0:
-                return 'https://api.pandascore.co/series/upcoming?token=P7jhyk5q4qOK-tiEXzT_1ovsLhKT8ECuj7t_BB6XOeYyb3u21yE'
+                return '/api/series/upcoming'
             case 1:
-                return 'https://api.pandascore.co/lol/series/upcoming?token=P7jhyk5q4qOK-tiEXzT_1ovsLhKT8ECuj7t_BB6XOeYyb3u21yE'
+                return '/api/lol/series/upcoming'
             case 2:
-                return 'https://api.pandascore.co/csgo/series/upcoming?token=P7jhyk5q4qOK-tiEXzT_1ovsLhKT8ECuj7t_BB6XOeYyb3u21yE'
+                return '/api/csgo/series/upcoming'
             case 3:
-                return 'https://api.pandascore.co/dota2/series/upcoming?token=P7jhyk5q4qOK-tiEXzT_1ovsLhKT8ECuj7t_BB6XOeYyb3u21yE'
+                return '/api/dota2/series/upcoming'
             default:
-                return 'https://api.pandascore.co/series/upcoming?token=P7jhyk5q4qOK-tiEXzT_1ovsLhKT8ECuj7t_BB6XOeYyb3u21yE'
+                return '/api/series/upcoming'
         }
     }
 
